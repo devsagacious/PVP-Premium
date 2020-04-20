@@ -1,4 +1,11 @@
-version: '1.0'
+version: '1.1'
+
+mysql-enabled: false
+mysql-username: 'myusername'
+mysql-password: 'mypassword'
+mysql-database: 'mydatabase'
+mysql-port: '3306'
+mysql-host: 'myhost'
 
 #{player} returns either 'My' or "PlayerExample's"
 stats-command: 

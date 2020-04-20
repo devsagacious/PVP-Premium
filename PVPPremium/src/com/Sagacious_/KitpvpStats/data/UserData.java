@@ -9,6 +9,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -38,6 +39,9 @@ public class UserData {
 	private int bountiesKilled;
 	private int bountiesSurvived;
 	
+	private boolean changed = false;
+	private boolean newp = false;
+	
 	public UserData(UUID uuid, String name, int kills, int deaths, int killstreak, int top_killstreak, int resets, double xp, int hits, int misses, int criticals,
 			int bountiesKilled, int bountiesSurvived) {
 		this.uuid = uuid;
@@ -53,9 +57,12 @@ public class UserData {
 		this.criticals = criticals;
 		this.bountiesKilled = bountiesKilled;
 		this.bountiesSurvived = bountiesSurvived;
+		newp=misses<1||hits<1;
 	}
 	
-	public void save() {
+	public void save(boolean shutdown) {
+		if(Core.getInstance().sql==null) {
+			if(shutdown) {
 		File f = new File(Core.getInstance().getDataFolder(), "data/" + uuid.toString() + ".yml");
 		if(!f.exists()) {
 			try {
@@ -82,6 +89,30 @@ public class UserData {
 				e.printStackTrace();
 			}
 		}
+			}
+		}else {
+			if(changed) {
+				String query = "";
+				if(newp) {
+					query = "INSERT INTO PVPData(uuid, name, kills, deaths, killstreak, top_killstreak, resets, xp, hits, misses, criticals, bountiesKilled, bountiesSurvived) VALUES "
+							+ "('" + uuid.toString() + "', '" + name + "', '" + kills + "', '" + deaths + "', '" + killstreak + "', '" + top_killstreak+ "',"
+									+ "'" + resets + "', '" + xp + "', '" + hits + "', '" + misses + "', '" + criticals + "', '" + bountiesKilled + "', '" + bountiesSurvived + "');";
+				}else {
+					query = "UPDATE PVPData SET name='" + name + "', kills='" + kills + "', killstreak='" + killstreak + "', top_killstreak='" + top_killstreak + "',"
+							+ "resets='" + resets + "', xp='" + xp + "', hits='" + hits + "', misses='" + misses + "', criticals='" + criticals + "', bountiesKilled='" + bountiesKilled + "', bountiesSurvived='" + bountiesSurvived + "' WHERE uuid='" + uuid.toString() + "';";
+				}
+				final String queried = query;
+				if(shutdown) {
+					Core.getInstance().sql.executeStatement(queried);
+					return;
+				}
+				Bukkit.getScheduler().runTaskAsynchronously(Core.getInstance(), new Runnable() {
+					public void run() {
+						Core.getInstance().sql.executeStatement(queried);
+					}
+				});
+			}
+		}
 	}
 	
 	
@@ -95,6 +126,7 @@ public class UserData {
 	
 	public void setName(String name) {
 		this.name=name;
+		changed=true;
 	}
 	
 	public int getKills() {
@@ -119,10 +151,12 @@ public class UserData {
 	
 	public void setKills(int kills) {
 		this.kills = kills;
+		changed=true;
 	}
 	
 	public void setDeaths(int deaths) {
 		this.deaths = deaths;
+		changed=true;
 	}
 	
 	public void setKillstreak(int killstreak) {
@@ -130,14 +164,17 @@ public class UserData {
 		if(killstreak>top_killstreak) {
 			top_killstreak=killstreak;
 		}
+		changed=true;
 	}
 	
 	public void setTopKillstreak(int killstreak) {
 		this.top_killstreak = killstreak;
+		changed=true;
 	}
 	
 	public void setResets(int resets) {
 		this.resets = resets;
+		changed=true;
 	}
 	
 	public int getHits() {
@@ -146,6 +183,7 @@ public class UserData {
 	
 	public void setHits(int hits) {
 		this.hits = hits;
+		changed=true;
 	}
 	
 	public int getMisses() {
@@ -154,6 +192,7 @@ public class UserData {
 	
 	public void setMisses(int misses) {
 		this.misses = misses;
+		changed=true;
 	}
 	
 	public int getCriticals() {
@@ -162,6 +201,7 @@ public class UserData {
 	
 	public void setCriticals(int criticals) {
 		this.criticals = criticals;
+		changed=true;
 	}
 	
 	public String getKDR() {
