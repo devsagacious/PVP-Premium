@@ -1,6 +1,6 @@
 main: com.Sagacious_.KitpvpStats.Core
 name: PVPPremium
-version: 1.1.2
+version: 1.1.1
 author: Sagacious_
 softdepend: [PlaceholderAPI, MVdWPlaceholderAPI, Vault, HolographicDisplays]
 commands: 

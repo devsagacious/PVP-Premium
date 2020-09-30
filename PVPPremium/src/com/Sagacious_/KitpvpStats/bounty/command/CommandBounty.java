@@ -91,7 +91,7 @@ public class CommandBounty implements CommandExecutor{
 		        	Bukkit.broadcastMessage(f.replace("%bountied%", target.getName()).replace("%bountier%", p.getName()).replace("%amount%", ""+am));
 		        }
 		        Core.getInstance().bm.ph.subtract(p, am);
-		        Core.getInstance().bm.createBounty(p.getUniqueId(), target.getUniqueId(), am, null);
+		        Core.getInstance().bm.createBounty(p.getUniqueId(), target.getUniqueId(), am);
 		        u.lastBounty = System.currentTimeMillis();
 		        return true;
 			}

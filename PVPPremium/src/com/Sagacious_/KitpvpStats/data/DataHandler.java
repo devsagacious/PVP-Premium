@@ -1,8 +1,6 @@
 package com.Sagacious_.KitpvpStats.data;
 
 import java.io.File;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +18,6 @@ public class DataHandler {
 	public HashMap<UUID, UserData> stats = new HashMap<UUID, UserData>();
 	
 	public DataHandler() {
-		if(Core.getInstance().sql==null) {
 		File dir = new File(Core.getInstance().getDataFolder(), "data");
 		if(!dir.exists()) {
 			dir.mkdir();
@@ -30,20 +27,6 @@ public class DataHandler {
 			UserData s = new UserData(UUID.fromString(f.getName().replace(".yml","")), conf.getString("name"), conf.getInt("kills"), conf.getInt("deaths"),
 					conf.getInt("killstreak"), conf.getInt("top_killstreak"), conf.getInt("resets"), conf.getDouble("xp"), conf.getInt("hits"), conf.getInt("misses"), conf.getInt("criticals"), conf.getInt("bountiesKilled"), conf.getInt("bountiesSurvived"));
 		    stats.put(s.getUniqueId(), s);
-		}
-		}else {
-			try {
-				ResultSet set = Core.getInstance().sql.prepareStatement("SELECT * FROM PVPData").executeQuery();
-				while(set.next()) {
-					UserData d = new UserData(UUID.fromString(set.getString("uuid")), set.getString("name"), set.getInt("kills"), set.getInt("deaths"), set.getInt("killstreak"), 
-						     set.getInt("top_killstreak"), set.getInt("resets"), set.getDouble("xp"), set.getInt("hits"), set.getInt("misses"), 
-						     set.getInt("criticals"), set.getInt("bountiesKilled"), set.getInt("bountiesSurvived"));
-					stats.put(d.getUniqueId(), d);
-				}
-				set.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	
@@ -88,7 +71,7 @@ public class DataHandler {
 	public HashMap<UserData, Integer> getDeaths(int deaths){
 		HashMap<UserData, Integer> t = new HashMap<UserData, Integer>();
 		for(UserData u : getAllUserData()) {
-			if(u.getDeaths()==deaths) {
+			if(u.getKills()==deaths) {
 				t.put(u, deaths);
 			}
 		}
@@ -98,7 +81,7 @@ public class DataHandler {
 	public HashMap<UserData, Integer> getKillstreak(int killstreak){
 		HashMap<UserData, Integer> t = new HashMap<UserData, Integer>();
 		for(UserData u : getAllUserData()) {
-			if(u.getTopKillstreak()==killstreak) {
+			if(u.getKillstreak()==killstreak) {
 				t.put(u, killstreak);
 			}
 		}

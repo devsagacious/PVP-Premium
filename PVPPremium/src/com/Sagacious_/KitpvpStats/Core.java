@@ -29,7 +29,6 @@ import com.Sagacious_.KitpvpStats.handler.ActivityHandler;
 import com.Sagacious_.KitpvpStats.handler.AntistatsHandler;
 import com.Sagacious_.KitpvpStats.handler.KillstreakHandler;
 import com.Sagacious_.KitpvpStats.leaderboard.LeaderboardHandler;
-import com.Sagacious_.KitpvpStats.sql.SQLConnection;
 import com.Sagacious_.KitpvpStats.util.FileUtil;
 
 public class Core extends JavaPlugin{
@@ -50,7 +49,6 @@ public class Core extends JavaPlugin{
 	public WorldguardHook wh = null;
 	public String version = "1.0";
 	public SLManager sl;
-	public SQLConnection sql = null;
 	
 	public HolographicHook h = null;
 	
@@ -74,10 +72,6 @@ public class Core extends JavaPlugin{
 			if(useHolographic) {
 			     h = new HolographicHook();
 			}
-		}
-		if(getConfig().getBoolean("mysql-enabled")) {
-			sql = new SQLConnection(getConfig().getString("mysql-database"), getConfig().getString("mysql-port"), getConfig().getString("mysql-username"), getConfig().getString("mysql-password"), getConfig().getString("mysql-host"));
-		    sql.setupTables();
 		}
 		wh = new WorldguardHook();
 		sl = new SLManager();
@@ -104,7 +98,7 @@ public class Core extends JavaPlugin{
 
 	@Override
 	public void onDisable() {
-		for(UserData d : dh.getAllUserData()) {d.save(true);}
+		for(UserData d : dh.getAllUserData()) {d.save();}
 		lh.saveHologramLocations();
 		if(h!=null) {
 			h.killAll();

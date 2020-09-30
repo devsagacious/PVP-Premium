@@ -31,7 +31,6 @@ public class ActivityHandler implements Listener{
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Core.getInstance().dh.getData(e.getPlayer()).online = false;
-		Core.getInstance().dh.getData(e.getPlayer()).save(false);
 	}
 	
 	@EventHandler
