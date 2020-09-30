@@ -1,0 +1,108 @@
+version: '1.0'
+
+#######################
+#    Leaderboards     #
+#######################
+
+leaderboard-format: '&6%number%. &e%name% &8| &r%integer%'
+leaderboard-update-time: 120
+
+leaderboard-kills-enabled: false
+leaderboard-kills-header: '&7Top 10 kills'
+leaderboard-kills-location: 'world, 0.0, 5.0, 0.0'
+
+leaderboard-deaths-enabled: false
+leaderboard-deaths-header: '&7Top 10 Deaths'
+leaderboard-deaths-location: 'world, 0.0, 5.0, 0.0'
+
+leaderboard-killstreak-enabled: false
+leaderboard-killstreak-header: '&7Top 10 Killstreaks'
+leaderboard-killstreak-location: 'world, 0.0, 5.0, 0.0'
+
+leaderboard-kdr-enabled: false
+leaderboard-kdr-header: '&7Top 10 Killstreaks'
+leaderboard-kdr-location: 'world, 0.0, 5.0, 0.0'
+
+leaderboard-hitmissratio-enabled: false
+leaderboard-hitmissratio-header: '&7Top 10 Killstreaks'
+leaderboard-hitmissratio-location: 'world, 0.0, 5.0, 0.0'
+
+leaderboard-criticalhitratio-enabled: false
+leaderboard-criticalhitratio-header: '&7Top 10 Killstreaks'
+leaderboard-criticalhitratio-location: 'world, 0.0, 5.0, 0.0'
+
+
+#######################
+#       Levels        #
+#######################
+xp-per-kill: 5
+
+# Use 'chat:' to send chat messages via console, using msg will send a player something like [Console > You] Hi!
+levels:
+   0:
+    name: '&70'
+    cmd: ['']
+    xp_needed: 0
+   1:
+    name: '&cRookie'
+    cmd: ['eco give %player% 100', 'chat:&6You have reached level 1!']
+    xp_needed: 10
+    
+    
+#######################
+#     Killstreak      #
+#######################    
+killstreaks:
+   5:
+    perform:
+      - 'bc &7%player& &ais on a 5 kill killstreak!'
+      - 'eco give %player% 200'
+   10:
+    perform:
+      - 'bc &7%player% &ais on a 10 kill killstreak'
+      - '&6You are unstoppable!'
+      
+ 
+#######################
+#     Hooks/API's     #
+#######################
+#Requires Vault (Support for MvDWPlaceholderAPI & PlaceholderAPI)
+use-format: false
+format: "&7[%level%&7] %prefix%&7%player%&8: &7%suffix%%message%"   
+
+#Requires WorldGuard
+worldguard-enabled: false
+worldguard-regions:
+  - '__global__' 
+  
+
+#######################
+#    Anti boosting    #
+#######################  
+antistats-max-kills: 15
+antistats-max-kills-time: 300
+antistats-timeout: 600
+antistats-message: '&cYou have killed a single player too many times, you will not increase your statistics for &410 minutes'
+same-address-check: false
+
+
+#######################
+#      Messages       #
+#######################  
+syntax-error: '&c&lPVPStats &8| &7Invalid command syntax, use %command_usage%!'
+reset-none: '&c&lPVPStats &8| &7You do not own any resets!'
+reset: '&c&lPVPStatistics &8| &7You have reset your statistics'
+reset-received: '&c&lPVPStatistics &8| &7You have received &4%amount% &7resets'
+
+
+stats-command: 
+  - '&8-=-=-[ &a%player% Statistics &8]-=-=-'
+  - '&7'
+  - '&aKills &8> &r%kills%'
+  - '&aDeaths &8> &r%deaths%'
+  - '&aKillstreak &8> &r%killstreak%'
+  - '&aTop Killstreak &8> &r%top_killstreak%'
+  - '&aKDR &8> &r%kdr%'
+  - '&aHMR &8> &r%hmr%'
+  - '&aCHR &8> &r%chr%'
+  - '&aLevel &8> &r%level%'
