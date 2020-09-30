@@ -1,0 +1,210 @@
+version: '1.6'
+
+mysql-enabled: false
+mysql-username: 'myusername'
+mysql-password: 'mypassword'
+mysql-database: 'mydatabase'
+mysql-port: '3306'
+mysql-host: 'myhost'
+
+#{player} returns either 'My' or "PlayerExample's"
+stats-command: 
+  - '&8-=-=-[ &a%player% Statistics &8]-=-=-'
+  - '&7'
+  - '&aKills &8> &r%kills%'
+  - '&aDeaths &8> &r%deaths%'
+  - '&aKillstreak &8> &r%killstreak%'
+  - '&aTop Killstreak &8> &r%top_killstreak%'
+  - '&aKDR &8> &r%kdr%'
+  - '&aHMR &8> &r%hmr%'
+  - '&aCHR &8> &r%chr%'
+  - '&aLevel &8> &r%level%'
+  - '&aXP &8> &r%curr_xp%/%nextlevel_xp%'
+  - '&aProgress &8> &8[&r%level_progress%&8] &b%level_progress_percent%% &7(&6%level_xp_tonextlevel% &7XP to next level)'
+  - '&aHits &8> &r%hits%'
+  - '&aMisses &8> &r%misses%'
+  - '&aCriticals &8> &r%criticals%'
+me: 'My'
+
+
+#######################
+#       Levels        #
+#######################
+level-progress-identifier: '|'
+level-progress-blocks: 20
+level-progress-color: '&a'
+level-progress-noncolor: '&7'
+
+xp-per-kill: 5
+xploss-per-death: 2
+
+# Use 'chat:' to send chat messages via console, using msg will send a player something like [Console > You] Hi!
+levels:
+   zero:
+    name: '&70'
+    cmd: ['']
+    xp_needed: 0
+   one:
+    name: '&cRookie'
+    cmd: ['eco give %player% 100', 'chat:&6You have reached level 1!']
+    xp_needed: 10
+levelup-commands: ['eco give %player% 200', 'chat:&6You leveled up to %name%&6!']
+    
+
+#######################
+#     Killstreak      #
+#######################    
+killstreaks:
+   '5':
+    perform:
+      - 'bc &7%player& &ais on a 5 kill killstreak!'
+      - 'eco give %player% 200'
+    end:
+      - "bc &7%killer% &cended &7%player%&c's 5 kill killstreak!"
+   '10':
+    perform:
+      - 'bc &7%player% &ais on a 10 kill killstreak'
+      - 'chat:&6You are unstoppable!'
+    end:
+      - "bc &7%killer% &cended &7%player%&c's 10 kill killstreak!"
+      
+
+#######################
+#     Hooks/API's     #
+#######################
+### - REQUIRES Vault
+#### : Support for PlaceholderAPI/MVdWPlaceholderAPI
+use-format: false
+format: "&7[{pvplevel}&7] {prefix}&7{player}&8: &7{suffix}{message}"
+
+#Requires WorldGuard
+worldguard-enabled: false
+worldguard-regions:
+  - '__global__'
+
+
+#######################
+#    Anti boosting    #
+####################### 
+
+# Max kills a player have concurrently on one player
+antistats-max-kills: 15
+# Time till counted kills will be reset
+antistats-max-kills-time: 300
+# Time player will not recieve stats updates when timed out due to antistats-max-kills
+antistats-timeout: 600
+# Message sent to player when timed out
+antistats-message: '&cYou have killed a single player too many times, you will not increase your statistics for &410 minutes'
+# Checks if two players are on the same address, if so stats will not be counted
+same-address-check: false
+# Max kills a player can have on one player (Will not reset on server restart) (Set to 0 to disable)
+max-kills: 0
+# Message sent to player when max kills has been reached
+max-kills-message: '&cYou have killed that player so much you can no longer recieve any benefits from killing them!'
+
+
+#######################
+#      Messages       #
+#######################  
+syntax-error: '&c&lPVPStats &8| &7Invalid command syntax, use %command_usage%!'
+reset-none: '&c&lPVPStats &8| &7You do not own any resets!'
+reset: '&c&lPVPStatistics &8| &7You have reset your statistics'
+reset-received: '&c&lPVPStatistics &8| &7You have received &4%amount% &7resets'
+
+# KDR Format, if you don't know what this means, dont change it.
+# https://docs.oracle.com/javase/7/docs/api/java/text/DecimalFormat.html
+kdr-format: '##0.0'
+
+
+#######################
+#      Combatlog      #
+#######################  
+combatlog-enabled: false
+combatlog-nolonger: '&7You are no longer in combat!'
+
+# Time until player will no longer be in combat
+combatlog-time: 15
+# Commands to execute when player combatlogs
+# %player% for combatlogger, %killer% for the respective killer of the player that combat logged
+# use 'chat:' to send chat message to killer
+combatlog-commands:
+  - 'chat:&c%player% &4has combat-logged!'
+  - 'bc &c%player% &4has combat-logged!'
+
+# Sent to player when in combat
+combatlog-combatant: '&7You have been attacked by &c%player% &7and now in combat for &c15 seconds&7!'
+combatlog-attacker: '&7You have attacked &c%player% &7and now in combat for &c15 seconds&7!'
+
+# Set to '' to disable
+combatlog-actionbar-message: '&9&lCombat &8| &rYou are in combat for &c%time%s&r!'
+
+#######################
+# Leaderboard Command #
+#######################  
+lb-cmd-enabled: true
+lb-as-gui: false
+
+lb-invalid-syntax: 
+  - '&7&m--------------'
+  - '&6/lb kills &8- &eTop 10 Kills'
+  - '&6/lb deaths &8- &eTop 10 Deaths'
+  - '&6/lb killstreak &8- &eTop 10 Killstreaks'
+  - '&6/lb kdr &8- &eTop 10 KDR'
+  - '&6/lb chr &8- &eTop 10 CHR'
+  - '&6/lb hmr &8- &eTop 10 HMR'
+  - '&6/lb bounty &8- &eTop 10 Bounties'
+  - '&6/lb levels &8- &eTop 10 Levels'
+  - '&6/lb uniquekills &8- &eTop 10 Unique Kills'
+  - '&7&m--------------'
+
+lb-header-kills: '&7Top 10 Kills'
+lb-header-killstreak: '&7Top 10 Killstreaks'
+lb-header-deaths: '&7Top 10 Deaths'
+lb-header-kdr: '&7Top 10 KDR'
+lb-header-chr: '&7Top 10 CHR'
+lb-header-hmr: '&7Top 10 HMR'
+lb-header-levels: '&7Top 10 Levels'
+lb-header-bounties: '&7Top 10 Bounties'
+lb-header-uniquekills: '&7Top 10 Unique Kills'
+
+# Have a main menu where players can select what stats they want to see
+lb-selectmenu-enabled: true
+lb-selectmenu-title: '&7Top Statistics'
+
+# Syntax =
+# %name%:%item%
+# set to '' to disable
+lb-selectmenu-kills: '&7Top 10 Kills:DIAMOND_SWORD'
+lb-selectmenu-killstreak: '&7Top 10 Killstreaks:IRON_CHESTPLATE'
+lb-selectmenu-deaths: '&7Top 10 Deaths:REDSTONE'
+lb-selectmenu-kdr: '&7Top 10 KDR:IRON_SWORD'
+lb-selectmenu-chr: '&7Top 10 CHR:STONE_SWORD'
+lb-selectmenu-hmr: '&7Top 10 HMR:WOOD_SWORD'
+lb-selectmenu-levels: '&7Top 10 Levels:EXP_BOTTLE'
+lb-selectmenu-bounties: '&7Top 10 Bounties:PAPER'
+lb-selectmenu-uniquekills: '&7Top 10 Unique Kills:GOLD_SWORD'
+
+lb-cmd-format: '&6%place%. &e%player% &8| &7%amount%'
+
+
+#######################
+#       Other         #
+#######################  
+# Drop playerheads
+playerheads: false
+# Drop chance percentage
+playerheads-chance: 1
+
+# Playerhead item
+playerheads-display: "&6&l%player%'s Head"
+
+# Interval between consumption in seconds
+playerheads-interval: 300
+playerheads-interval-message: "&6That item has a cooldown of &e%remaining%s&6!"
+
+# Turn to 0 to disable
+playerheads-health: 10
+playerheads-regeneration: 2
+
+# What worlds not to gather stats in?
+world-blacklist: ['world_the_end', 'notthisworld']

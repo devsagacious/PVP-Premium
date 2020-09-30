@@ -1,0 +1,101 @@
+version: '1.1'
+
+# This requires Vault!
+bounty-enabled: false
+
+tax-enabled: true
+# In %
+tax-amount: 10
+
+#Set to -1 to disable
+bounty-min-amount: 20
+bounty-max-amount: 700
+# Timeout in between bounties
+bounty-timeout: 300
+# Time for bounty to expire (Only when online) (Set to -1 to disable)
+bounty-time: 600
+# Payout percentage when bounty survives
+bounty-time-payout: 80
+
+
+
+
+tracker-enabled: true
+tracker-item: 'COMPASS'
+tracker-displayname: '&bTracker Compass'
+tracker-lore:
+  - '&7Right-click this item to track'
+  - '&7a player bounty'
+# GUI for Tracker
+tracker-gui-size: 27
+# https://minecraftitemids.com/types/glass
+tracker-gui-glass-color: 7
+tracker-gui-title: '&bTracker Selector'
+tracker-gui-display: '&c%bountied%'
+tracker-lores: 
+  - '&eAmount &8> &6%amount%$'
+  - '&eBounty by &8> &6%bountier%'
+  - '&eTime Left &8> &6%timeleft%s'
+
+# Bounty GUI (Not the selector)
+tracker-size: 27
+tracker-glass-color: 7
+tracker-title: '&bTracker Selector'
+tracker-display: '&c%bountied%'
+tracker-lores: 
+  - '&eAmount &8> &6%amount%$'
+  - '&eBounty by &8> &6%bountier%'
+  - '&eTime Left &8> &6%timeleft%s'
+
+# Broadcasted Messages
+bounty-killed-message:
+  - '&7&m-------------------'
+  - '&c%bountied% &ehas been killed by &6%killer%'
+  - '&eThis bounty was worth &c%amount%&e!'
+  - '&7&m-------------------'
+
+bounty-survived-message: 
+  - '&7&m-------------------'
+  - '&c%bountied% &ehas survived the bounty placed by &6%bountier%'
+  - '&eThis bounty was worth &c%amount%&e!'  
+  - '&7&m-------------------'
+
+bounty-set-message:
+  - '&7&m-------------------'
+  - '&eA bounty has been set on &c%bountied% &eby &6%bountier%'
+  - '&eThe person that kills this player will be rewarded &c%amount%$&e!'
+  - '&7&m-------------------'
+
+bounty-set-onself:
+  - '&7&m-------------------'
+  - '&cYou can not set a bounty on yourself!'
+  - '&7&m-------------------'
+  
+bounty-syntax-message:
+  - '&7&m-------------------'
+  - '&e/bounty list | List of active bounties'
+  - '&e/bounty set <player> <amount> | Put a bounty on a player'
+  - '&7&m-------------------'
+
+# Private Messages
+tax-payment: '&eYou payed &c%amount%$ &eas tax'
+survival: '&eYou have survived the bounty set by &c%bountier%&e and recieved &6%amount%$&e!'
+bounty-offline: '&eThe selected bounty is &coffline&e!'
+target-killed: '&eYour target has been killed by &6%killer%&e!'
+target-selected: '&eYour target &6%bounty% &eis &6%distance% blocks &eaway!'
+bounty-cooldown: '&eYou must wait another &6%time% seconds &ebefore you can put out another bounty!'
+target-not-found: '&eYour target has not been found!'
+valid-number: '&ePlease put in a valid number!'
+insufficient-funds: '&eYou have insufficient funds for that bounty'
+number-between: '&eYou need to select a number between &620 and 700&e!'
+
+
+# Sounds
+# Sound target gets when he/she survives the bounty
+sound-survival: 'NOTE_PLING'
+# Sound the target gets when bountied
+sound-bountied: 'ENDERDRAGON_GROWL'
+# Sound for the killer when he/she kills a bounty
+sound-kill: 'NOTE_PIANO'
+# Sound for target when killed
+sound-killed: 'ENDERMAN_SCREAM'

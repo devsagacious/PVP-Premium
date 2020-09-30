@@ -1,0 +1,51 @@
+#######################
+#    Leaderboards     #
+#######################
+# Holographic Displays is a dependency since 1.4.0!
+leaderboard-format: '&6%number%. &e%name% &8| &r%integer%'
+leaderboard-update-time: 120
+
+leaderboard-kills-enabled: true
+leaderboard-kills-header: '&7Top 10 kills'
+leaderboard-kills-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-kills-footer: '&7- This is a footer -'
+
+leaderboard-deaths-enabled: true
+leaderboard-deaths-header: '&7Top 10 Deaths'
+leaderboard-deaths-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-deaths-footer: '&7- This is a footer -'
+
+leaderboard-killstreak-enabled: true
+leaderboard-killstreak-header: '&7Top 10 Killstreaks'
+leaderboard-killstreak-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-killstreak-footer: '&7- This is a footer -'
+
+leaderboard-kdr-enabled: true
+leaderboard-kdr-header: '&7Top 10 KDR'
+leaderboard-kdr-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-kdr-footer: '&7- This is a footer -'
+
+leaderboard-hitmissratio-enabled: true
+leaderboard-hitmissratio-header: '&7Top 10 HMR'
+leaderboard-hitmissratio-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-hitmissratio-footer: '&7- This is a footer -'
+
+leaderboard-criticalhitratio-enabled: true
+leaderboard-criticalhitratio-header: '&7Top 10 CHR'
+leaderboard-criticalhitratio-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-criticalhitratio-footer: '&7- This is a footer -'
+
+leaderboard-level-enabled: true
+leaderboard-level-header: '&7Top 10 Levels'
+leaderboard-level-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-level-footer: '&7- This is a footer -'
+
+leaderboard-bounty-enabled: false
+leaderboard-bounty-header: '&7Top 10 Bounties'
+leaderboard-bounty-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-bounty-footer: '&7- This is a footer -'
+
+leaderboard-uniquekills-enabled: false
+leaderboard-uniquekills-header: '&7Top 10 Unique Kills'
+leaderboard-uniquekills-location: 'world, 0.0, 5.0, 0.0'
+leaderboard-uniquekills-footer: '&7- This is a footer -'

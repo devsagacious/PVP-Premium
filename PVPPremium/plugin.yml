@@ -1,0 +1,30 @@
+main: com.Sagacious_.KitpvpStats.Core
+name: PVPPremium
+version: 1.5.12
+api-version: 1.13
+author: Sagacious_
+depend: [HolographicDisplays]
+softdepend: [PlaceholderAPI, MVdWPlaceholderAPI, Vault, worldedit, worldguard]
+commands: 
+  stats:
+   aliases: [statistics]
+  leaderboardrefresh:
+   usage: /<command>
+  moveleaderboard:
+   aliases: [movelb] 
+  adminreset:
+   aliases: [ar]
+  statsreset:
+   aliases: [sr] 
+  setstats:
+   usage: /<command>
+  removestats:
+   usage: /<command>
+  addstats:
+   usage: /<command>
+  bounty:
+   usage: /<command> 
+  removeleaderboard:
+    aliases: [removelb]
+  leaderboard:
+    aliases: [lb]
